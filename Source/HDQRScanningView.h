@@ -28,3 +28,12 @@
 - (void)stopScanning;
 
 @end
+
+#pragma mark
+#pragma mark HDQRScanningViewDelegate
+
+@protocol HDQRScanningViewDelegate <NSObject>
+
+- (void)captureResult:(NSString *)result format:(NSString *)format;
+
+@end

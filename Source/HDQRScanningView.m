@@ -425,9 +425,13 @@
     }
     AudioServicesPlaySystemSound(1109);
     NSString *formatString = [self barcodeFormatToString:result.barcodeFormat];
-    NSString *display = [NSString
-        stringWithFormat:@"Scanned!\n\nFormat: %@\n\nContents:\n%@", formatString, result.text];
-    NSLog(@"%@", display);
+//    NSString *display = [NSString
+//        stringWithFormat:@"Scanned!\n\nFormat: %@\n\nContents:\n%@", formatString, result.text];
+//    NSLog(@"%@", display);
+    if ([_scanningView.delegate respondsToSelector:@selector(captureResult:format:)])
+    {
+        [_scanningView.delegate captureResult:result.text format:formatString];
+    }
 }
 
 - (void)captureSize:(ZXCapture *)capture width:(NSNumber *)width height:(NSNumber *)height
