@@ -80,8 +80,8 @@
 {
     [super drawRect:rect];
     CGContextRef context = UIGraphicsGetCurrentContext();
-//    CGContextSetFillColorWithColor(context, self.backgroundColor.CGColor);
-//    CGContextFillRect(context, rect);
+    //    CGContextSetFillColorWithColor(context, self.backgroundColor.CGColor);
+    //    CGContextFillRect(context, rect);
 
     CGFloat leftMargin = _marginEdgeInsets.left;
     CGFloat topMargin = _marginEdgeInsets.top;
@@ -278,7 +278,6 @@
     _capture.camera = _capture.back;
     _capture.focusMode = AVCaptureFocusModeContinuousAutoFocus;
     _capture.rotation = 90.0f;
-    [self.layer addSublayer:self.capture.layer];
 
     // scanView
     _scanningView = [[HDQRScanView alloc] init];
@@ -346,14 +345,14 @@
 
 - (void)startScanning
 {
-    self.capture.delegate = self;
-    //    [self.capture start];
+    [self.layer addSublayer:self.capture.layer];
+    [self bringSubviewToFront:self.scanningView];
     [self.scanningView startScanningAnimation];
+    self.capture.delegate = self;
 }
 
 - (void)stopScanning
 {
-    [self.capture stop];
     self.capture.delegate = nil;
 }
 
@@ -425,9 +424,10 @@
     }
     AudioServicesPlaySystemSound(1109);
     NSString *formatString = [self barcodeFormatToString:result.barcodeFormat];
-//    NSString *display = [NSString
-//        stringWithFormat:@"Scanned!\n\nFormat: %@\n\nContents:\n%@", formatString, result.text];
-//    NSLog(@"%@", display);
+    //    NSString *display = [NSString
+    //        stringWithFormat:@"Scanned!\n\nFormat: %@\n\nContents:\n%@", formatString,
+    //        result.text];
+    //    NSLog(@"%@", display);
     if ([_scanningView.delegate respondsToSelector:@selector(captureResult:format:)])
     {
         [_scanningView.delegate captureResult:result.text format:formatString];
