@@ -428,9 +428,9 @@
     //        stringWithFormat:@"Scanned!\n\nFormat: %@\n\nContents:\n%@", formatString,
     //        result.text];
     //    NSLog(@"%@", display);
-    if ([_scanningView.delegate respondsToSelector:@selector(captureResult:format:)])
+    if ([self.delegate respondsToSelector:@selector(captureResult:format:)])
     {
-        [_scanningView.delegate captureResult:result.text format:formatString];
+        [self.delegate captureResult:result.text format:formatString];
     }
 }
 
